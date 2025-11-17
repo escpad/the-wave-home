@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2gtb6u2umolh"]
+
+[ext_resource type="Script" uid="uid://71geft1kmhup" path="res://ripple.gd" id="1_b3hhm"]
+
+[node name="Ripple" type="Node2D"]
+script = ExtResource("1_b3hhm")
