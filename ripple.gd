@@ -15,8 +15,7 @@ func _process(delta: float) -> void:
 	radius += grow_speed * delta
 	alpha -= fade_speed * delta
 
-	# Emit a wave with diminishing strength
-	var strength := alpha * 500.0
+	var strength := alpha * 300.0
 	emit_signal("wave_force", global_position, radius, strength)
 
 	if alpha <= 0 or radius > max_radius:

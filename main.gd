@@ -5,27 +5,33 @@ extends Node2D
 
 var bubble: Bubble
 
-func _ready():
-	# Spawn 1 bubble in the middle (or wherever)
+func _ready() -> void:
 	bubble = bubble_scene.instantiate()
-	bubble.position = Vector2(400, 300)
+	bubble.position = Vector2(50, 50)
 	add_child(bubble)
 
-func _unhandled_input(event):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var r = ripple_scene.instantiate()
-		r.position = event.position
-		add_child(r)
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		_spawn_ripple(event.position)
+
+func _spawn_ripple(origin: Vector2) -> void:
+	if ripple_scene == null:
+		return
+
+	var r = ripple_scene.instantiate()
+	r.position = origin
+	add_child(r)
+
+	if r.has_signal("wave_force"):
 		r.wave_force.connect(_on_wave_force)
 
 func _on_wave_force(origin: Vector2, radius: float, strength: float) -> void:
-	if not bubble:
+	if bubble == null:
 		return
 
-	var dist = bubble.global_position.distance_to(origin)
+	var dist: float = bubble.global_position.distance_to(origin)
 
-	# If bubble is near the ripple's current ring
 	if abs(dist - radius) < 20.0:
-		var dir = (bubble.global_position - origin).normalized()
-		var force = dir * strength * 0.01
+		var dir: Vector2 = (bubble.global_position - origin).normalized()
+		var force: Vector2 = dir * strength * 0.01
 		bubble.apply_wave_force(force)

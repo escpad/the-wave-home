@@ -14,3 +14,11 @@ config/name="The Wave Home"
 run/main_scene="uid://dut7jpo4rd6qb"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=480
+window/size/viewport_height=270
+window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
